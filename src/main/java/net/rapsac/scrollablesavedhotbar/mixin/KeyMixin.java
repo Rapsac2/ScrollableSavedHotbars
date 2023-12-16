@@ -51,12 +51,12 @@ import org.spongepowered.asm.mixin.Mixin;
 //import net.minecraft.util.hit.HitResult;
 //import net.minecraft.util.math.Vec3d;
 
-@Mixin(GameOptions.class)
-public class KeyMixin {
+//@Mixin(GameOptions.class)
+//public class KeyMixin {
 
 	//@Shadow
 	//@Final
 	//public GameOptions options;
 
     
-}
+//}
