@@ -3,7 +3,8 @@
 	"package": "net.rapsac.scrollablesavedhotbar.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"ExampleMixin",
+		"KeyMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
