@@ -1,32 +1,26 @@
 {
 	"schemaVersion": 1,
-	"id": "scrollablesavedhotbar",
+	"id": "scrollablesavedhotbars",
 	"version": "${version}",
-	"name": "scrollableSavedHotbar",
+	"name": "scrollableSavedHotbars",
 	"description": "This mod allows you to scroll through your saved hotbars",
 	"authors": [
 		"Rapsac"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/Rapsac2/minecraftMod"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/scrollablesavedhotbar/icon.png",
+	"icon": "assets/scrollablesavedhotbars/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"net.rapsac.scrollablesavedhotbar.ScrollableSavedHotbar"
-		],
 		"client": [
-			"net.rapsac.scrollablesavedhotbar.ScrollableSavedHotbarClient"
-		],
-		"fabric-datagen": [
-			"net.rapsac.scrollablesavedhotbar.ScrollableSavedHotbarDataGenerator"
+			"net.rapsac.scrollablesavedhotbars.ScrollableSavedHotbarsClient"
 		]
 	},
 	"mixins": [
-		"scrollablesavedhotbar.mixins.json"
+		"scrollablesavedhotbars.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.1",
