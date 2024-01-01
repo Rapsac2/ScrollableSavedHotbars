@@ -6,17 +6,17 @@ import org.slf4j.LoggerFactory;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.HotbarStorage;
 import net.minecraft.client.option.HotbarStorageEntry;
-import net.minecraft.client.util.InputUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.item.ItemStack;
 
 
 public class ScrollableSavedHotbarsClient implements ClientModInitializer {
-	public static final String MOD_ID = "scrollablesavedhotbar";
+	public static final String MOD_ID = "scrollablesavedhotbars";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	
-	private static int index;
+	private static int index = -1;
 	private static int scrollAmountInt; 
 	private static HotbarStorage hotbars;
 	
@@ -24,9 +24,8 @@ public class ScrollableSavedHotbarsClient implements ClientModInitializer {
 	@Environment (EnvType.CLIENT)
 	public static Boolean Scrolling(double scrollAmount) {
 			
-		if(MinecraftClient.getInstance().player.isCreative() && InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 342)){ //342 = Left_alt; 88 = x  If you can get a reference to the "loadToolbarActivatorKey" keybind from "GameOptions.class", write me and i will fix this.
-		
-			MinecraftClient client = MinecraftClient.getInstance(); // get client
+		MinecraftClient client = MinecraftClient.getInstance();
+		if(client.options.loadToolbarActivatorKey.isPressed() && client.player.isCreative()){
 			
 			hotbars = client.getCreativeHotbarStorage();
 			
@@ -35,7 +34,7 @@ public class ScrollableSavedHotbarsClient implements ClientModInitializer {
 
 			if(index < 0 && scrollAmountInt > 0){ //scroll overflow logic
 				index = 8;
-			}else if((index > 8 || index == -1) && scrollAmount < 0){
+			}else if((index > 8 || index == -1) && scrollAmountInt < 0){
 				index = 0;
 			}
 
@@ -53,14 +52,20 @@ public class ScrollableSavedHotbarsClient implements ClientModInitializer {
 
 		} else {
 			if(index != -1){
-				index = -1; // index reset to -1
+				index = -1; // index reset
 			}
-			return false; // alt_key is not pressed
+			return false;
 		}
 	}
 
 	@Override
 	public void onInitializeClient(){
-			index = -1;
+		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+			if(index != -1){
+				if (client.options.dropKey.isPressed() || client.options.useKey.isPressed() || client.options.attackKey.isPressed()) {
+					index = -1;
+				}
+			}
+		});
 	}
 }

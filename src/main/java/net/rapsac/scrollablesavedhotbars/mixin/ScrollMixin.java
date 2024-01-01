@@ -14,7 +14,7 @@ public class ScrollMixin{
 	@Inject(at = @At(value = "HEAD"), method = "scrollInHotbar", cancellable = true)
 	private void onScroll(double scrollAmount, CallbackInfo ci){
 		if(ScrollableSavedHotbarsClient.Scrolling(scrollAmount)){
-			ci.cancel();
+			ci.cancel(); 
 		}
 	}
 
